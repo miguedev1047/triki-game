@@ -1,3 +1,6 @@
+import '@/styles/retro.css'
+import '@/styles/index.css'
+
 import {
   HeadContent,
   Outlet,
@@ -8,7 +11,6 @@ import { Loader } from '@/components/loader'
 import { ThemeProvider } from '@/components/theme-provider'
 import { Toaster } from '@/components/ui/sonner'
 import { TanStackRouterDevtools } from '@tanstack/react-router-devtools'
-import '../index.css'
 
 export type RouterAppContext = {}
 
@@ -34,9 +36,7 @@ export const Route = createRootRouteWithContext<RouterAppContext>()({
 })
 
 function RootComponent() {
-  const isFetching = useRouterState({
-    select: (s) => s.isLoading,
-  })
+  const isFetching = useRouterState({ select: (s) => s.isLoading })
 
   return (
     <>
@@ -47,10 +47,13 @@ function RootComponent() {
         disableTransitionOnChange
         storageKey='vite-ui-theme'
       >
-        <div className='grid grid-rows-[auto_1fr] h-svh'>
+        <div className='grid grid-rows-[auto_1fr] h-svh retro'>
           {isFetching ? <Loader /> : <Outlet />}
         </div>
-        <Toaster richColors />
+        <Toaster
+          richColors
+          position='top-center'
+        />
       </ThemeProvider>
       <TanStackRouterDevtools position='bottom-left' />
     </>
