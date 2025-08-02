@@ -81,7 +81,7 @@ export function Square(props: BoardTemplate) {
 
   return (
     <Button
-      className='aspect-square size-full grid place-items-center cursor-pointer p-6'
+      className='aspect-square size-full grid place-items-center cursor-pointer p-2 md:p-6'
       size='icon'
       onClick={handleChangeSymbol}
     >
