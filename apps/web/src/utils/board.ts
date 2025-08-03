@@ -19,3 +19,17 @@ export function checkIsDraw(boardToCheck: GameBoard) {
   const isDraw = boardToCheck.every((square) => square !== null)
   return isDraw
 }
+
+export function checkIsWinSquare(boardToCheck: GameBoard) {
+   for (const combos of WINNER_COMBOS) {
+    const [a, b, c] = combos
+    if (
+      boardToCheck[a] &&
+      boardToCheck[a] === boardToCheck[b] &&
+      boardToCheck[a] === boardToCheck[c]
+    ) {
+      return combos
+    }
+  }
+  return null
+}
