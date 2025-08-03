@@ -1,8 +1,7 @@
-import type { BoardTemplate, Cell, GameBoard } from '@/types'
+import type { BoardTemplate, GameBoard } from '@/types'
 import { useGame } from '@/store/use-game'
-import { toast } from 'sonner'
 import { SymbolIcon } from '@/components/symbol'
-import { checkIsDraw, checkWinner } from '@/utils/board'
+import { checkIsDraw, checkIsWinSquare, checkWinner } from '@/utils/board'
 import { cn } from '@/lib/utils'
 import { Button } from '@/components/ui/8bit/button'
 import { useFadeState } from '@/hooks/fade-state'
@@ -13,7 +12,6 @@ export function Square(props: BoardTemplate) {
   const { index } = props
 
   const board = useGame((s) => s.board)
-
   const updateBoard = useGame((s) => s.updateBoard)
   const symbol = board[index]
 
@@ -26,18 +24,16 @@ export function Square(props: BoardTemplate) {
   const winnerStatus = useGame((s) => s.winner)
   const updateWinner = useGame((s) => s.updateWinner)
 
+  const updateDialogOpen = useGame((s) => s.updateDialogOpen)
+
   const fadeState = useFadeState(index, symbol, history)
 
-  const removeOldPlay = (history: Cell[], newBoard: GameBoard) => {
+  const removeOldPlay = (history: number[], newBoard: GameBoard) => {
     if (history.length >= PLAYS_TO_REMOVE) {
       const oldestMoveIndex = history[0]
       const updatedBoard = [...newBoard]
+      updatedBoard[oldestMoveIndex] = null
       const updatedHistory = history.slice(1)
-
-      if (typeof oldestMoveIndex === 'number') {
-        updatedBoard[oldestMoveIndex] = null
-      }
-
       updateBoard(updatedBoard)
       updateHistory(updatedHistory)
     }
@@ -50,7 +46,7 @@ export function Square(props: BoardTemplate) {
     const newHistory = [...history]
 
     newBoard[index] = turn
-    newHistory.push(index as unknown as Cell)
+    newHistory.push(index)
 
     updateBoard(newBoard)
     updateHistory(newHistory)
@@ -64,20 +60,22 @@ export function Square(props: BoardTemplate) {
     const isDraw = checkIsDraw(newBoard)
 
     if (newWinner) {
-      toast.success(`The player ${newWinner} won!`)
       updateWinner(newWinner)
       playSound({ type: 'win' })
+      updateDialogOpen(true)
       return
     }
 
     if (isDraw) {
-      toast.success('The match is a draw!')
       updateWinner('DRAW')
       return
     }
 
-    playSound({ type: 'change' })
+    playSound({ type: 'tap' })
   }
+
+  const winSquare = checkIsWinSquare(board)
+  const isHighlighted = winSquare?.includes(index)
 
   return (
     <Button
@@ -88,6 +86,7 @@ export function Square(props: BoardTemplate) {
       <SymbolIcon
         symbol={symbol}
         className={cn(
+          isHighlighted && 'text-secondary',
           'transition-opacity duration-500 size-full grid place-items-center',
           {
             'opacity-100': fadeState === 'FULL',
