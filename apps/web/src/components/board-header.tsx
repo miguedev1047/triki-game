@@ -7,7 +7,7 @@ export function BoardHeader() {
   const resetGame = useGame((s) => s.resetGame)
 
   return (
-    <div className='absolute w-full top-0 -translate-y-[calc(100%_+_24px)] '>
+    <div className='w-full'>
       <Box className='flex flex-1 items-end justify-between '>
        <h2 className='md:text-2xl'>Triki Game</h2>
         <Button
