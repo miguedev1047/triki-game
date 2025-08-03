@@ -1,13 +1,13 @@
 import { TapSound, DrawSound, WinSound } from '@/assets/audio-effects/_index'
 
 export interface typeSound {
-  type: 'change' | 'win' | 'draw'
+  type: 'tap' | 'win' | 'draw'
 }
 
 export const playSound = (props: typeSound) => {
   const { type } = props
 
-  if (type === 'change') {
+  if (type === 'tap') {
     const audio = new Audio(TapSound)
     audio.play()
     return
