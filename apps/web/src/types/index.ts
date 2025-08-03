@@ -6,10 +6,12 @@ export type Winner = Player | 'DRAW' | 'NONE'
 export type Cell = 'X' | 'O' | null
 
 export type GameBoard = Cell[]
+export type HistoryBoard = number[]
 
 export interface DefaultValues {
   board: GameBoard
-  history: GameBoard
+  dialogOpen: boolean
+  history: HistoryBoard
   gameStatus: GameStatus
   winner: Winner
   turn: Player
@@ -18,7 +20,7 @@ export interface DefaultValues {
 export interface RemoveOldPlay {
   history: Cell[]
   updateHistory: (newHistory: Cell[]) => void
-  updateBoard: (newBoard: GameBoard) => void
+  updateBoard: (newBoard: HistoryBoard) => void
   newBoard: GameBoard
 }
 
@@ -26,14 +28,16 @@ export type FadeState = 'FULL' | 'INTERMEDIATE' | 'FADING'
 
 export interface Game {
   board: GameBoard
-  history: GameBoard
+  history: HistoryBoard
   gameStatus: GameStatus
   winner: Winner
   turn: Player
+  dialogOpen: boolean
   updateBoard: (newBoard: GameBoard) => void
-  updateHistory: (newHistory: GameBoard) => void
+  updateHistory: (newHistory: HistoryBoard) => void
   updateGameStatus: (status: GameStatus) => void
   updateWinner: (winner: Winner) => void
   updateTurn: (turn: Player) => void
+  updateDialogOpen: (open: boolean) => void
   resetGame: () => void
 }
