@@ -1,47 +1,17 @@
-# trikigame-app
+# Triki Game
 
-This project was created with [Better-T-Stack](https://github.com/AmanVarshney01/create-better-t-stack), a modern TypeScript stack that combines React, TanStack Router, and more.
+A simple but fun retro-style **tic-tac-toe** game — with a twist!  
+The squares disappear after a short time, so only the most attentive player will win. Stay sharp!
 
-## Features
+## 🖥️ Demo Screenshots
 
-- **TypeScript** - For type safety and improved developer experience
-- **TanStack Router** - File-based routing with full type safety
-- **TailwindCSS** - Utility-first CSS for rapid UI development
-- **shadcn/ui** - Reusable UI components
-- **Biome** - Linting and formatting
-- **Turborepo** - Optimized monorepo build system
+Here’s a quick look at the game in action:
 
-## Getting Started
+![Demo 1](./apps/web/src/assets/demo/demo-1.png)  
+![Demo 2](./apps/web/src/assets/demo/demo-2.png)
 
-First, install the dependencies:
+## 🚀 Tech Stack
 
-```bash
-bun install
-```
-
-
-Then, run the development server:
-
-```bash
-bun dev
-```
-
-Open [http://localhost:3001](http://localhost:3001) in your browser to see the web application.
-
-
-
-## Project Structure
-
-```
-trikigame-app/
-├── apps/
-│   ├── web/         # Frontend application (React + TanStack Router)
-```
-
-## Available Scripts
-
-- `bun dev`: Start all applications in development mode
-- `bun build`: Build all applications
-- `bun dev:web`: Start only the web application
-- `bun check-types`: Check TypeScript types across all apps
-- `bun check`: Run Biome formatting and linting
+- **Frontend:** React, Tailwind CSS, shadcn/ui, 8Bit
+- **State Management:** Zustand  
+- **Hosting:** Vercel
